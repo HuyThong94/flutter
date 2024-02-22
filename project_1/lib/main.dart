@@ -2,6 +2,20 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
+   var A = 12;
+  var B = 5;
+
+  print(~A); // A complement
+  print(~B); // B complement
+  print(A & B); // A AND B
+  print(A | B); // A OR B
+  print(A ^ B); // A XOR B
+  print(B << 2); // B Shift Left 2
+  print(A >> 2); // A Shift Right 2
+  var printMe = "HelloWorld123";
+  print(printMe);
+  String s1 = "helloWorld";
+  print(s1.indexOf("o"));
 }
 
 class MyApp extends StatelessWidget {
@@ -118,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.remove),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
