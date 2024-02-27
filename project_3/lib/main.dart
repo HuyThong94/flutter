@@ -120,8 +120,8 @@ class ProductPage extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(0),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset("assets/appimages/" + this.item.image),
                 Expanded(
@@ -244,7 +244,7 @@ class ProductBox extends StatelessWidget {
         height: 140,
         child: Card(
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset("assets/appimages/" + this.item.image),
                 Expanded(
@@ -253,9 +253,9 @@ class ProductBox extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            Text(this.item.name, style: TextStyle(fontWeight: FontWeight.bold)), Text(this.item.description),
+                            Text(this.item.name, style: TextStyle(fontWeight: FontWeight.bold)), Text(this.item.description,),
                             Text("Price: " + this.item.price.toString()),
-                            RatingBox(),
+                            // RatingBox(),
                           ],
                         )
                     )
