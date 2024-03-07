@@ -1,6 +1,6 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import '../mixins/validation_mixin.dart';
 
 class LoginScreen extends StatefulWidget{
   @override
@@ -8,22 +8,24 @@ class LoginScreen extends StatefulWidget{
     return LoginScreenState();
   }
 }
-class LoginScreenState extends State<LoginScreen>{
+class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   final formKey = GlobalKey<FormState>();
+  String email= '';
+  String password = '';
 
   Widget build(BuildContext context){
     return Container(
       margin: EdgeInsets.all(20.0),
-      key: formKey,
       child: Form(
-          child: Column(
-            children: [
-              emailField(),
-              passswordField(),
-              Container(margin: EdgeInsets.only(bottom: 25.0)),
-              submitButton(),
-            ],
-          ),
+        key: formKey,
+        child: Column(
+          children: [
+            emailField(),
+            passswordField(),
+            Container(margin: EdgeInsets.only(bottom: 25.0)),
+            submitButton(),
+          ],
+        ),
       ),
     );
   }
@@ -35,49 +37,36 @@ class LoginScreenState extends State<LoginScreen>{
         labelText: 'Email Address',
         hintText: 'You@example.com',
       ),
-      validator: (String? value){
-        if(value != null){
-         if(!value.contains('@')){
-           return 'Please enter a valid email!';
-         }
-         if(value == ''){
-           return 'Please cannot be left blank';
-         }
-        }
-
+      validator: validateEmail,
+      onSaved: (String? value){
+        email = value!;
       },
     );
   }
   Widget passswordField(){
     return TextFormField(
-        obscureText: true,
-        decoration: InputDecoration(
-          border: UnderlineInputBorder(),
-          labelText: 'Password',
-          hintText: 'Enter Password',
-        ),
-      validator: (String? value){
-        if(value != null){
-          if(value == ''){
-            return 'Please cannot be left blank';
-          }
-          if(value.length < 4){
-            return 'Password must be at least 4 characters';
-          }
-        }
+      obscureText: true,
+      decoration: InputDecoration(
+        border: UnderlineInputBorder(),
+        labelText: 'Password',
+        hintText: 'Enter Password',
+      ),
+    validator: validatePassword,
+      onSaved: (String? value){
+        password = value!;
       },
     );
-
   }
   Widget submitButton(){
     return ElevatedButton(
       style: TextButton.styleFrom(backgroundColor: Colors.blue, foregroundColor: Colors.white),
       child: Text('Submit'),
       onPressed: (){
-          // formKey.currentState?.reset();
-        print(formKey.currentState?.validate());
-        },
-
+        if (formKey.currentState!.validate()) {
+          formKey.currentState!.save();
+          print('Time to post $email and $password to my API');
+        }
+      },
     );
   }
 }
