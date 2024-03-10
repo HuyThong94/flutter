@@ -1,68 +1,58 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+void main(){
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'First App'),
+      title: 'First App',
+       theme: ThemeData(
+         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent.shade400),
+         useMaterial3: true,
+       ),
+      home: const MyHomepage(title: 'First App!'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyHomepage extends StatefulWidget{
   final String title;
-
+  const MyHomepage({super.key, required this.title});
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomepage> createState() => _MyHomepageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _MyHomepageState extends State<MyHomepage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor:  Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          IconButton(
+              onPressed: (){
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('THis is a snackbar!')));
+              },
+              icon: const Icon(Icons.engineering),
+          ),
+        ],
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Hello World!',
-            ),
-            Text(
-              'Its time to learn Flutter!',
-              // style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.black54, Colors.orangeAccent, ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Text('Hello World!', style: TextStyle(color: Colors.white, fontSize: 30),),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
